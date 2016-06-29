@@ -1,9 +1,15 @@
 package neumont.edu.csc180.nugle;
 
-import java.io.*;//replace this with specific imports later
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
