@@ -11,14 +11,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 import org.junit.Test;
 import neumont.edu.csc180.nugle.*;
 
-public class NugleTest {
+public class LinkFinderTest {
 
-	public final String resultspath = "C:/Users/tfeue/workspace/Nugle/results", filepath = "C:/Users/tfeue/workspace/Nugle/neumont.edu";
+	public final String resultspath = "C:/Users/tfeue/workspace/Nugle/results", 
+						filepath = "C:/Users/tfeue/workspace/Nugle/neumont.edu";
+	
+	public final boolean printResults = false;
 
 	@Test
 	public void test() {
@@ -26,7 +30,7 @@ public class NugleTest {
 			LinkFinder snooper = new LinkFinder();
 			snooper.processPage(new FileInputStream(new File(filepath)));
 
-			Collection<String> results = new ArrayList<String>();
+			ArrayList<String> results = new ArrayList<String>();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(resultspath))));
 			String line;
 			while((line = reader.readLine()) != null){
@@ -35,25 +39,31 @@ public class NugleTest {
 			
 			Iterator<String> resi = results.iterator(),
 					snpr = snooper.getLinks();
-			
+
+//			System.out.println("resi: "+results.size());getClass();
+//			
+//			System.out.println("snpr: "+snooper.getLinksCount());
+//			
 			int count = 0;
-			while(resi.hasNext() && snpr.hasNext()){
-				System.out.println("count: "+count+"\nresi: "+resi.next() + "\nsnpr: " + snpr.next() + "\n");
-				count++;
+			if(printResults){
+				while(resi.hasNext() && snpr.hasNext()){
+					System.out.println("\ncount: "+count+"\nresi: "+resi.next() + "\nsnpr: " + snpr.next() + "\n");
+					count++;
+				}
 			}
 
-//			boolean same = true;
-//			int count = 0;
-//			while(resi.hasNext()){
-//				count++;
-//				if(!resi.next().equals(snpr.next())){
-//					same = false;
-//					System.err.println(count);
-//					break;
-//				}
-//			}
-//			
-//			assertTrue(same);
+			boolean same = true;
+			count = 0;
+			while(resi.hasNext()){  
+				count++;
+				if(!resi.next().equals(snpr.next())){
+					same = false;
+					System.err.println(count);
+					break;
+				}
+			}
+			
+			assertTrue(same);
 
 			//			assertTrue(results.equals(snooper.getLinks().t));
 
